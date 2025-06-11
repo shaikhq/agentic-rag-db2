@@ -18,11 +18,11 @@ The goal is to empower the LLM not just to answer, but to **reason**, **evaluate
 ```mermaid
 flowchart TD
     A[User Query Input] --> B[Initial Document Retrieval]
-    B --> C[LLM Grades Relevance of Retrieved Docs]
+    B --> C[LLM Grades Retrieved Docs]
 
     C -->|Relevant| D[Generate Final Answer]
     C -->|Not Relevant| E[LLM Rewrites Query]
-    E --> F[New Retrieval (e.g., from Web or Alt Source)]
+    E --> F[New Retrieval from Alternate Source]
     F --> G[LLM Generates Final Answer]
 
     D --> H[Return Answer to User]
@@ -124,29 +124,3 @@ python -m ipykernel install --user --name=myenv --display-name "Python (.venv)"
    * Run `Developer: Reload Window`
 
 ---
-
-## 🧭 Setup Workflow Diagram
-
-```mermaid
-flowchart TD
-    A[Start: macOS System] --> B[Create .venv using uv and Python 3.13]
-    B --> C[Activate virtual environment]
-    C --> D[Install dependencies from requirements.txt]
-    D --> E[Create .env file]
-    E --> F[Add WATSONX_PROJECT and WATSONX_APIKEY]
-    F --> G[Ensure pip is installed]
-    G --> H[Download spaCy model (en_core_web_sm)]
-    H --> I[Download local embedding model (Granite GGUF)]
-
-    subgraph Optional: VS Code + Jupyter
-        I --> J[Install Jupyter and ipykernel]
-        J --> K[Register .venv kernel with ipykernel]
-        K --> L[Open VS Code]
-        L --> M[Reveal hidden .venv folder (Cmd + Shift + .)]
-        M --> N[Select .venv/bin/python as Python Interpreter]
-        N --> O[Select .venv/bin/python for Jupyter Kernel]
-        O --> P[Reload VS Code Window if needed]
-    end
-
-    P --> Q[Setup Complete – Ready to Run LangGraph]
-```
