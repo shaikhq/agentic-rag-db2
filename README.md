@@ -1,80 +1,71 @@
+# 🛠️ LangGraph Agentic RAG – Setup Guide (macOS)
+
+## 1. ✅ Create and Activate Virtual Environment (Python 3.13)
+
+```bash
 uv venv --python $(which python3.13)
-
 source .venv/bin/activate
+```
+
+## 2. 📦 Install Python Dependencies
+
+```bash
 uv pip install -r requirements.txt
+```
 
-Register kernel (separate step, not via uv)
+## 3. 🧠 Install Language Model and spaCy Dependencies
 
-bash
-Copy
-Edit
-python -m ipykernel install --user --name=myenv --display-name "Python (.venv)"
+```bash
+python -m ensurepip --upgrade
+python -m spacy download en_core_web_sm
+```
 
-choose the interpreter from .venv as the project interpreter at VS Code
+## 4. ⬇️ Download Embedding Model (Granite)
 
-macOS VS Code: 
+```bash
+wget -O granite-embedding-30m-english-Q6_K.gguf \
+  https://huggingface.co/lmstudio-community/granite-embedding-30m-english-GGUF/resolve/main/granite-embedding-30m-english-Q6_K.gguf
+```
 
-n the file dialog that opens, press:
+---
 
-scss
-Copy
-Edit
-Cmd + Shift + .  (Command + Shift + Period)
-🔍 This reveals hidden folders like .venv.
+## 🧪 Optional: Use .venv with Jupyter and VS Code
 
-Now you can navigate into .venv/bin and select the python or python3 interpreter file.
+### 5. 🧰 Install Jupyter & Kernel Support
 
-Using .venv with Jupyter in VS Code (macOS)
-Create and activate the virtual environment
-
-bash
-Copy
-Edit
-uv venv .venv --python $(which python3.13)
-source .venv/bin/activate
-Install Jupyter and ipykernel
-
-bash
-Copy
-Edit
+```bash
 uv pip install jupyter ipykernel
-Register the kernel
+```
 
-bash
-Copy
-Edit
+### 6. 🧠 Register Jupyter Kernel
+
+```bash
 python -m ipykernel install --user --name=myenv --display-name "Python (.venv)"
-In VS Code:
+```
 
-Open Command Palette (Cmd + Shift + P)
+---
 
-Run Python: Select Interpreter, and choose .venv/bin/python
+## 💻 Set Up VS Code for .venv (macOS)
 
-Run Jupyter: Select Interpreter to Start Jupyter Server, and choose the same .venv
+### Select the Interpreter:
 
-[If the kernel doesn't show up in the notebook picker immediately:]
+1. Open Command Palette: `Cmd + Shift + P`
+2. Run: **Python: Select Interpreter**
+3. If `.venv` is hidden, press `Cmd + Shift + .` to reveal it.
+4. Navigate to `.venv/bin` and select `python` or `python3`
 
-Select any other environment temporarily
+### Select Interpreter for Jupyter Server:
 
-Then re-select the .venv environment
+1. Open Command Palette: `Cmd + Shift + P`
+2. Run: **Jupyter: Select Interpreter to Start Jupyter Server**
+3. Choose `.venv/bin/python`
 
-This refresh often triggers kernel discovery in VS Code
+### \[Troubleshooting]
 
-Reload the VS Code window
+If the kernel doesn't appear:
 
-text
-Copy
-Edit
-Cmd + Shift + P → Developer: Reload Window
-Open or create a notebook, then select the "Python (.venv)" kernel
+* Temporarily select another environment
+* Re-select `.venv` to trigger refresh
+* Run: `Cmd + Shift + P → Developer: Reload Window`
 
-brew install ollama
-
-ollama serve
-
-ollama serve
-
-separate terminal
-ollama pull granite-embedding:30m
-
-ollama pull mistral
+Then open/create a notebook and select **"Python (.venv)"** as the kernel.

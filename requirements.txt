@@ -4,6 +4,10 @@ langchain-text-splitters
 ipykernel
 jupyter
 tiktoken
-langchain-ollama
 langchain_ibm
 python-dotenv
+langchain-ollama>=0.1.0
+trafilatura
+spacy
+llama-cpp-python
+huggingface-hub
