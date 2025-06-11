@@ -1,0 +1,9 @@
+langgraph 
+langchain-community 
+langchain-text-splitters
+ipykernel
+jupyter
+tiktoken
+langchain-ollama
+langchain_ibm
+python-dotenv
