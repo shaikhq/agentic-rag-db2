@@ -2,76 +2,92 @@
 
 ## 🎯 Use Case
 
-This project demonstrates a clean, beginner-friendly implementation of an **Agentic RAG (Retrieval-Augmented Generation)** pipeline using **LangGraph**. My goal was to build a system that:
+This project implements a fully local, agentic RAG (Retrieval-Augmented Generation) pipeline using **LangGraph**. It is designed to:
 
-* Runs **fully locally** on macOS
-* Avoids cloud dependencies and costs
-* Allows the **LLM to take intelligent actions**: rewrite failed queries, guide search, and iterate before answering
+* Run entirely on **macOS**, offline
+* Use **local embeddings** with `llama.cpp`
+* Perform **iterative query refinement** when initial retrieval fails
+* Be clean, minimal, and beginner-friendly
 
-It’s designed for developers and researchers who want to prototype **multi-step, agentic LLM workflows** with full transparency and local control — no hosted APIs or vector services required.
+The goal is to empower the LLM not just to answer, but to **reason**, **evaluate context**, and **rewrite queries** when needed.
+
+---
+
+## 🔁 Agentic RAG Workflow
+
+```mermaid
+flowchart TD
+    A[User Query Input] --> B[Initial Document Retrieval]
+    B --> C[LLM Grades Relevance of Retrieved Docs]
+
+    C -->|Relevant| D[Generate Final Answer]
+    C -->|Not Relevant| E[LLM Rewrites Query]
+    E --> F[New Retrieval (e.g., from Web or Alt Source)]
+    F --> G[LLM Generates Final Answer]
+
+    D --> H[Return Answer to User]
+    G --> H
+```
+
+This shows the *agentic loop*: query → retrieve → grade → optionally rewrite → final answer.
 
 ---
 
 ## 🙏 Acknowledgment
 
-This implementation builds on the excellent LangChain tutorial:
+This project builds on the excellent LangChain tutorial:
 🔗 [Agentic RAG with LangGraph](https://langchain-ai.github.io/langgraph/tutorials/rag/langgraph_agentic_rag/)
-from the LangChain team.
 
 ---
 
 ## ✨ What I’ve Added
 
-I extended the original tutorial with the following improvements:
+Compared to the original tutorial, this project includes:
 
-* **Local Embeddings** using `llama.cpp`, eliminating dependency on hosted embedding APIs
-* **Cleaner Document Parsing** using `trafilatura` for robust HTML content extraction
-* **Sentence-Aware Chunking** to ensure coherent and semantically meaningful text splits
-
-These enhancements help make the RAG pipeline **lightweight, efficient, and more suitable for real-world macOS usage**.
+* **Local Embeddings** via `llama.cpp` – no cloud dependency
+* **Cleaner Parsing** with `trafilatura` for robust HTML extraction
+* **Smarter Chunking** using sentence-aware segmentation
 
 ---
 
 # ⚙️ Setup Instructions (macOS)
 
-## 1. ✅ Create and Activate Virtual Environment (Python 3.13)
+## ✅ Create and Activate Virtual Environment
 
 ```bash
 uv venv --python $(which python3.13)
 source .venv/bin/activate
 ```
 
-## 2. 📦 Install Python Dependencies
+## 📦 Install Dependencies
 
 ```bash
 uv pip install -r requirements.txt
 ```
 
-## 3. 🔐 Create a `.env` File for API Credentials
-
-In the project root, create a file named `.env`:
+## 🔐 Create `.env` File
 
 ```bash
 touch .env
 ```
 
-Then add:
+Add the following:
 
 ```
 WATSONX_PROJECT=
 WATSONX_APIKEY=
 ```
 
-> 🔒 Replace the values with your actual Watsonx credentials.
+Replace values with your Watsonx credentials.
 
-## 4. 🧠 Install spaCy and Required Language Model
+## 🧠 Install Language Model + spaCy
 
 ```bash
 python -m ensurepip --upgrade
 python -m spacy download en_core_web_sm
 ```
 
-## 5. ⬇️ Download Local Embedding Model (Granite)
+## ⬇️ Download Local Embedding Model
 
 ```bash
 wget -O granite-embedding-30m-english-Q6_K.gguf \
@@ -80,23 +96,57 @@ wget -O granite-embedding-30m-english-Q6_K.gguf \
 
 ---
 
-## 🧪 (Optional) Use .venv with Jupyter and VS Code
+## 💻 Optional: VS Code + Jupyter Setup
 
-### Install Jupyter Support
+### Install Jupyter
 
 ```bash
 uv pip install jupyter ipykernel
 ```
 
-### Register Kernel
+### Register Jupyter Kernel
 
 ```bash
 python -m ipykernel install --user --name=myenv --display-name "Python (.venv)"
 ```
 
-### In VS Code
+### Set Up in VS Code
 
-1. Open Command Palette: `Cmd + Shift + P`
-2. **Select Python Interpreter:** Choose `.venv/bin/python` (press `Cmd + Shift + .` to reveal hidden `.venv`)
-3. **Select Jupyter Interpreter:** Same as above
-4. If needed, run `Developer: Reload Window` to refresh kernel list
+1. `Cmd + Shift + P` → **Python: Select Interpreter**
+2. Press `Cmd + Shift + .` to show hidden `.venv` folder
+3. Choose `.venv/bin/python`
+4. `Cmd + Shift + P` → **Jupyter: Select Interpreter to Start Jupyter Server**
+5. Choose the same `.venv` Python
+6. If kernel doesn’t show:
+
+   * Temporarily select a different one
+   * Re-select `.venv`
+   * Run `Developer: Reload Window`
+
+---
+
+## 🧭 Setup Workflow Diagram
+
+```mermaid
+flowchart TD
+    A[Start: macOS System] --> B[Create .venv using uv and Python 3.13]
+    B --> C[Activate virtual environment]
+    C --> D[Install dependencies from requirements.txt]
+    D --> E[Create .env file]
+    E --> F[Add WATSONX_PROJECT and WATSONX_APIKEY]
+    F --> G[Ensure pip is installed]
+    G --> H[Download spaCy model (en_core_web_sm)]
+    H --> I[Download local embedding model (Granite GGUF)]
+
+    subgraph Optional: VS Code + Jupyter
+        I --> J[Install Jupyter and ipykernel]
+        J --> K[Register .venv kernel with ipykernel]
+        K --> L[Open VS Code]
+        L --> M[Reveal hidden .venv folder (Cmd + Shift + .)]
+        M --> N[Select .venv/bin/python as Python Interpreter]
+        N --> O[Select .venv/bin/python for Jupyter Kernel]
+        O --> P[Reload VS Code Window if needed]
+    end
+
+    P --> Q[Setup Complete – Ready to Run LangGraph]
+```
