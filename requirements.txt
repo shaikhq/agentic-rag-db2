@@ -11,3 +11,7 @@ trafilatura
 spacy
 llama-cpp-python
 huggingface-hub
+pygraphviz
+langchain-db2
+langchain-core
+ibm_db

@@ -99,7 +99,7 @@ wget -O granite-embedding-30m-english-Q6_K.gguf \
 ## 💻 Optional: VS Code + Jupyter Setup
 
 ### Install Jupyter
-
+****
 ```bash
 uv pip install jupyter ipykernel
 ```
