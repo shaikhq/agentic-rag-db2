@@ -1,4 +1,4 @@
-# 🔍 Local Agentic RAG Pipeline (macOS) – README
+# 🔍 Building an Agentic RAG Pipeline using IBM Db2 and Db2 LangChain Connector - macOS setup
 
 ## 🎯 Use Case
 
@@ -117,7 +117,7 @@ python -m ipykernel install --user --name=myenv --display-name "Python (.venv)"
 3. Choose `.venv/bin/python`
 4. `Cmd + Shift + P` → **Jupyter: Select Interpreter to Start Jupyter Server**
 5. Choose the same `.venv` Python
-6. If kernel doesn’t show:
+6. If kernel doesn’t show up:
 
    * Temporarily select a different one
    * Re-select `.venv`
