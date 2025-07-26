@@ -17,6 +17,13 @@ from langchain_community.vectorstores.utils import DistanceStrategy
 from langchain_core.documents import Document
 from langchain_db2.db2vs import DB2VS
 
+import logging
+import traceback
+
+# Add at the top of your file
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Load environment variables from deployment directory
 load_dotenv(Path(__file__).parent / ".env")
 
@@ -111,6 +118,7 @@ def overlapping_sentence_chunker(text, max_words=200, overlap_words=50):
 async def ingest_document(request: IngestRequest):
     """Ingest a document from URL into the vector store"""
     try:
+        # Fetch and extract content
         downloaded = trafilatura.fetch_url(str(request.url))
         if not downloaded:
             raise HTTPException(status_code=400, detail="Failed to fetch content from URL")
@@ -119,28 +127,51 @@ async def ingest_document(request: IngestRequest):
         if not article:
             raise HTTPException(status_code=400, detail="Failed to extract text from URL")
         
+        # Chunk the text
         chunks = overlapping_sentence_chunker(article, request.max_words, request.overlap_words)
         
         if not chunks:
             raise HTTPException(status_code=400, detail="No chunks created from the document")
         
+        # Get database connection and embeddings
         connection = get_db_connection()
         embeddings = get_embeddings()
         
-        vectorstore = DB2VS.from_texts(
-            chunks,
-            embeddings,
-            client=connection,
-            table_name=request.table_name,
-            distance_strategy=DistanceStrategy.EUCLIDEAN_DISTANCE,
-        )
+        # Check if table exists
+        cursor = connection.cursor()
+        cursor.execute("""
+            SELECT COUNT(*) FROM SYSCAT.TABLES 
+            WHERE TABNAME = ? AND TABSCHEMA = CURRENT SCHEMA
+        """, (request.table_name.upper(),))
+        table_exists = cursor.fetchone()[0] > 0
+        cursor.close()
         
-        # Use connection.close() for ibm_db_dbi connections
+        if table_exists:
+            # Table exists - use add_texts()
+            vectorstore = DB2VS(
+                client=connection, 
+                table_name=request.table_name,
+                embedding_function=embeddings  # ✅ CORRECT parameter name
+            )
+            vectorstore.add_texts(texts=chunks)
+            message = f"Added {len(chunks)} chunks to existing table '{request.table_name}'"
+            
+        else:
+            # Table doesn't exist - use from_texts()
+            vectorstore = DB2VS.from_texts(
+                texts=chunks,
+                embedding=embeddings,
+                client=connection,
+                table_name=request.table_name,
+                distance_strategy=DistanceStrategy.EUCLIDEAN_DISTANCE,
+            )
+            message = f"Created table '{request.table_name}' with {len(chunks)} chunks"
+        
         connection.close()
         
         return IngestResponse(
             success=True,
-            message=f"Successfully ingested document with {len(chunks)} chunks",
+            message=message,
             chunks_created=len(chunks)
         )
         
