@@ -1,12 +1,37 @@
-# Python-generated files
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.py[oc]
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Distribution / packaging
 build/
 dist/
 wheels/
-*.egg-info
-.env
-*.gguf
+*.egg-info/
 
 # Virtual environments
-.venv
+.env
+.venv/
+venv/
+
+# Testing
+.pytest_cache/
+
+# Logs
+*.log
+
+# ML Models
+*.gguf
+models/*.gguf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
