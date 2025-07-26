@@ -12,16 +12,16 @@ uv add fastapi uvicorn httpx pydantic trafilatura spacy \
        langchain_ibm langchain-db2 langgraph ibm_db python-dotenv \
        llama-cpp-python
 
-# Download models
-mkdir -p models
+# Download models to parent directory
+mkdir -p ../models
 uv pip install https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
-wget -O models/granite-embedding-30m-english-Q6_K.gguf \
+wget -O ../models/granite-embedding-30m-english-Q6_K.gguf \
   https://huggingface.co/lmstudio-community/granite-embedding-30m-english-GGUF/resolve/main/granite-embedding-30m-english-Q6_K.gguf
 ```
 
 ## Configuration
 
-Create `.env` file:
+Create `.env` file in the parent directory:
 ```env
 DB_NAME=your_database_name
 DB_HOST=your_database_host
@@ -70,4 +70,4 @@ curl -X GET "http://localhost:8001/health"
 
 - Python 3.13+
 - UV package manager
-- IBM Db2 12.1.2+ with vector support
+- IBM DB2 database with vector support

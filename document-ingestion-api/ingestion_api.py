@@ -17,7 +17,9 @@ from langchain_community.embeddings import LlamaCppEmbeddings
 from langchain_community.vectorstores.utils import DistanceStrategy
 from langchain_db2.db2vs import DB2VS
 
-load_dotenv()
+# Load .env from parent directory
+parent_dir = Path(__file__).parent.parent
+load_dotenv(parent_dir / ".env")
 
 app = FastAPI(
     title="Document Ingestion API", 
@@ -79,11 +81,13 @@ def get_db_connection():
         raise HTTPException(status_code=500, detail=f"Database connection failed: {str(e)}")
 
 def get_embeddings():
-    """Load Granite embedding model from models/ directory"""
+    """Load Granite embedding model from parent/models/ directory"""
+    parent_dir = Path(__file__).parent.parent
     model_paths = [
-        "models/granite-embedding-30m-english-Q6_K.gguf",
+        parent_dir / "models" / "granite-embedding-30m-english-Q6_K.gguf",  # Preferred: parent/models/
+        "models/granite-embedding-30m-english-Q6_K.gguf",  # Fallback: local models/
         Path(__file__).parent / "models" / "granite-embedding-30m-english-Q6_K.gguf",
-        "granite-embedding-30m-english-Q6_K.gguf",
+        "granite-embedding-30m-english-Q6_K.gguf",  # Fallback: current directory
         Path(__file__).parent / "granite-embedding-30m-english-Q6_K.gguf"
     ]
     
@@ -93,7 +97,7 @@ def get_embeddings():
     
     raise FileNotFoundError(
         "Embedding model file 'granite-embedding-30m-english-Q6_K.gguf' not found. "
-        "Expected locations: models/ directory or current directory"
+        "Expected locations: parent/models/ directory, local models/ directory, or current directory"
     )
 
 def chunk_text(text, max_words=200, overlap_words=50):
