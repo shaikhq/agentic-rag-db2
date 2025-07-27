@@ -6,7 +6,6 @@ FastAPI service that ingests web documents into a vector database for AI semanti
 
 ```bash
 # Install dependencies
-uv init --python 3.13 --no-readme --no-workspace .
 uv add fastapi uvicorn httpx pydantic trafilatura spacy \
        langchain-community langchain-text-splitters langchain-core \
        langchain_ibm langchain-db2 langgraph ibm_db python-dotenv \
