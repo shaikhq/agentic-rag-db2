@@ -266,23 +266,6 @@ For better performance in production:
 - Consider separating back to microservices for horizontal scaling
 - Monitor memory usage as everything runs in single process
 
-## Migration
-
-### From Separate APIs
-
-If you were previously running separate ingestion and search APIs:
-
-1. **Stop existing services** on ports 8001 and 8002
-2. **Start gateway** on port 8000
-3. **Update client code** to use port 8000 instead of 8001/8002
-4. **API endpoints remain the same** - no code changes needed
-
-### To Separate APIs
-
-To go back to separate microservices:
-1. Start individual APIs on their original ports
-2. Optionally use the proxy gateway version instead of embedded version
-
 ## Development
 
 To modify the gateway:
