@@ -22,6 +22,8 @@ wget -O ../models/granite-embedding-30m-english-Q6_K.gguf \
 
 Create `.env` file in the parent directory:
 ```env
+WATSONX_PROJECT=
+WATSONX_APIKEY=
 DB_NAME=your_database_name
 DB_HOST=your_database_host
 DB_PORT=50000
