@@ -1,4 +1,4 @@
-# IDUG NA 2025 - Db2 Machine Learning Workshop Instructions
+# IDUG LATAM 2025 - Db2 AI Workshop Instructions
 
 ## 1. Requesting an IBM id
 Go to this page and register for an IBMid: [Create an IBMid](https://www.ibm.com/account/reg/us-en/signup?formid=urx-19776)
@@ -23,7 +23,7 @@ It will take a couple minutes to submit the form and get an IBM id.
 Once you have an IBM id and its password, go to the next step. 
 
 ## 2. Accessing Your Workshop VM
-Go to workshop attendee's page by either clicking [this](https://techzone.ibm.com/my/workshops/student/67c5c4eaa104117773f24811) or typing on your browser https://ibm.biz/idug-au-vm
+Go to workshop attendee's page by clicking [this](https://techzone.ibm.com/my/workshops/student/68915e980042a0affcfe084e) 
 
 
 It will ask you to sign in using your IBM id and password. Enter your IBM credentails and log in. After you reach the Workshop Attendee's page, you will see the following form. In this form, enter the workshop access code that you received from your instructor and click `Submit password/access code` button. 
@@ -48,31 +48,7 @@ Clicking the blue console link will launch the following login window to your wo
 
 From this expanded login window, log in as db2inst1 user with the password that your instructor has provided you. 
 
-## 3. Downloading the Workshop Code
+## 3. Open Visual Studio Code
 
-2. Download lab code from db2ml-labs repo:
-```shell
-git clone https://github.com/shaikhq/db2ai-labs
-```
+![alt text](.images/image-19.png)
 
-3. Type `ls` to see the git repo folder, `db2ai-labs`, that you just downloaded. 
-```shell
-ls
-```
-
-4. Go to `db2ai-labs` directory:
-```shell
-cd db2ai-labs
-```
-
-5. See the content of `db2ai-labs` directory:
-```shell
-ls
-```
-
-- `idax` directory has the content of the first lab where you'll use Db2's in-database advanced analytics (IDAX) stored 
-procedures for developing a machine learning (ML) model.
-
-- `udf-py` directory has the content of the second lab where you'll create and deploy a Python udf at Db2.
-
-- `udf-c` directory has the content of the second lab where you'll implement a vector similarity search use case with Db2.
