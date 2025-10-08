@@ -52,3 +52,6 @@ From this expanded login window, log in as db2inst1 user with the password that 
 
 ![alt text](.images/image-19.png)
 
+
+WATSONX_PROJECTID = 4d376e25-4636-45fb-869c-fa2456349d64
+WATSONX_APIKEY = FTYHcT1NDKnIO_88F5FBmc6C5FxgQeY7EniQxd8VT-Pk
