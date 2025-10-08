@@ -52,11 +52,6 @@ From this expanded login window, log in as db2inst1 user with the password that 
 
 ![alt text](.images/image-19.png)
 
-```
-WATSONX_PROJECTID = 4d376e25-4636-45fb-869c-fa2456349d64
-WATSONX_APIKEY = FTYHcT1NDKnIO_88F5FBmc6C5FxgQeY7EniQxd8VT-Pk
-```
-
 * 🤖 **Building an Agentic AI Workflow with Db2 + LangChain**
   A two-part tutorial on building a reasoning-capable AI agent using **Db2’s vector search** and the **Db2 LangChain connector**, orchestrated with **LangGraph**:
 
