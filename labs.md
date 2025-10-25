@@ -53,12 +53,4 @@ From this expanded login window, log in as db2inst1 user with the password that 
 ![alt text](.images/image-19.png)
 
 * 🤖 **Building an Agentic AI Workflow with Db2 + LangChain**
-  A two-part tutorial on building a reasoning-capable AI agent using **Db2’s vector search** and the **Db2 LangChain connector**, orchestrated with **LangGraph**:
-
-  → 🎬 **[Part 1: Project Overview + Workflow Explanation](https://video.ibm.com/recorded/134436922)**
-  Introduces the Agentic RAG use case, explains how the LLM agent iteratively evaluates, rewrites, and answers queries using vector search, and outlines the full workflow. Ideal for teams modernizing enterprise data access with AI.
-
-  → 🛠️ **[Part 2: Code Walkthrough](https://video.ibm.com/recorded/134451386)**
-  Hands-on walkthrough of the Python codebase, showing how to set up the document ingestion pipeline, LangGraph agent, and retrieval logic in a reproducible way.
-  📖 [Full tutorial and code](https://lnkd.in/gujc3Wrq)
-
+[RAG with IBM Db2 & Local LLMs](https://github.com/shaikhq/db2-langchain-rag-local)
