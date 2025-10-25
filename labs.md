@@ -54,3 +54,5 @@ From this expanded login window, log in as db2inst1 user with the password that 
 
 * 🤖 **Lab**
 [RAG with IBM Db2 & Local LLMs](https://github.com/shaikhq/db2-langchain-rag-local)
+
+Copy the project settings for .env file from here: https://ibm.biz/idugconf
