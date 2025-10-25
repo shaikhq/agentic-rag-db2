@@ -52,5 +52,5 @@ From this expanded login window, log in as db2inst1 user with the password that 
 
 ![alt text](.images/image-19.png)
 
-* 🤖 **Building an Agentic AI Workflow with Db2 + LangChain**
+* 🤖 **Lab**
 [RAG with IBM Db2 & Local LLMs](https://github.com/shaikhq/db2-langchain-rag-local)
